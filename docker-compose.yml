@@ -1,0 +1,29 @@
+version: "3"
+services:
+  fda: &fda
+    restart: unless-stopped
+    working_dir: /data
+    build:
+      context: .
+      dockerfile: druginfo.Dockerfile
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    logging:
+      driver: json-file
+      options:
+        max-size: 50m
+    stdin_open: true
+    tty: true
+    volumes:
+      - .:/data/
+    command: bash -c "jupyter nbconvert --to notebook  --ExecutePreprocessor.timeout=-1 --execute FDA\ Drug\ News\ Data\ Export.ipynb"
+
+  # notebook:
+  #   <<: *fda
+  #   command: bash -c "jupyter notebook --allow-root --no-browser --ip=0.0.0.0 --port=8080 --NotebookApp.token='' --NotebookApp.password=''"
+  #   ports:
+  #     - "7574:8080"
+
+  # trigger:
+  #   <<: *fda
+  #   command: bash -c "jupyter nbconvert --to notebook  --ExecutePreprocessor.timeout=-1 --execute FDA\ Drug\ News\ Data\ Export.ipynb"

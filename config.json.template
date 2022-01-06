@@ -1,0 +1,11 @@
+{
+    "uri":"https://www.accessdata.fda.gov",
+    "smtp":{
+        "host":"<smtp_hostname>",
+        "port":587,
+        "username":"<username>",
+        "password":"<password>",
+        "from_email":"<from_email>"
+    },
+    "recipients":"<string@gmail.com, list@hotmail.com, ofusers@tpsg.io>"
+}
